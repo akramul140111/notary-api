@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\GlobalHelper;
 use App\Http\Requests\ApplicationRequest;
 use App\Http\Resources\ApplicationResource;
 use App\Http\Resources\ApplicationResourceCollection;
@@ -15,6 +16,11 @@ class ApplicationController extends Controller
 {
     //
 
+    public function __construct(private readonly GlobalHelper $globalHelper)
+    {
+        
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,6 +28,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
+        $allServices    = $this->globalHelper->getServiceList(auth()->user()->office_id) ?? [];
         $application = new ApplicationResourceCollection(Application::all());
         return response()->json(['status' => true, 'data' => $application, 'message' => 'Successfully get Applications'], 200);
     }
