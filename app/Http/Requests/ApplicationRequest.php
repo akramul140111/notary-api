@@ -26,7 +26,8 @@ class ApplicationRequest extends FormRequest
             'name'      => 'required',
             'mobile'    => 'required',
             'gender'    => 'required',
-            'scan_copy' => 'required|max:2048',
+            // 'scan_copies.*.title' => 'nullable|string',
+            // 'scan_copies.*.appImg' => 'nullable|file|mimes:jpg,png,pdf|max:2048',
         ];
     }
 }
