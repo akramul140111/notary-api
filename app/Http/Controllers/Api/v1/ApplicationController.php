@@ -28,9 +28,9 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $allServices    = $this->globalHelper->getServiceList(auth()->user()->office_id) ?? [];
+        $allServices    = $this->globalHelper->getServiceList(65) ?? [];
         $application = new ApplicationResourceCollection(Application::all());
-        return response()->json(['status' => true, 'data' => $application, 'message' => 'Successfully get Applications'], 200);
+        return response()->json(['status' => true, 'data' => $application, 'message' => 'Successfully get Applications', 'services' => $allServices], 200);
     }
 
     /**

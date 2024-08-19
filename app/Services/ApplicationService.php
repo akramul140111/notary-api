@@ -13,6 +13,8 @@ class ApplicationService {
         $application->mobile        = $request->mobile;
         $application->gender        = $request->gender;
         $application->email         = $request->email;
+        $application->office_id     = $request->office_id ? $request->office_id : 4;
+        $application->service_id    = $request->service_id;
         $application->save();
 
         if ($request->has('scan_copy')) {

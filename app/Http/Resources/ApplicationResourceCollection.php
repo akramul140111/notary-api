@@ -18,12 +18,14 @@ class ApplicationResourceCollection extends ResourceCollection
     {
         return $this->collection->map(function($application) {
             return [
-                'id'        => $application->id,
-                'name'      => $application->name,
-                'mobile'    => $application->mobile,
-                'gender'    => $application->gender,
-                'scan_copy' => Storage::url($application->scan_copy),
-                'email'     => $application->email,
+                'id'            => $application->id,
+                'name'          => $application->name,
+                'mobile'        => $application->mobile,
+                'gender'        => $application->gender,
+                'scan_copy'     => $application->scan_copy ? ScanCopyResource::collection($application->scan_copy) : [],
+                'email'         => $application->email,
+                'office_id'     => $application->office_id,
+                'service_id'    => $application->service_id,
             ];
         })->all() ;
     }

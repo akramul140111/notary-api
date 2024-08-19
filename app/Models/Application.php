@@ -16,6 +16,8 @@ class Application extends Model
         'gender',
         'scan_copy',
         'email',
+        'office_id',
+        'service_id',
     ];
 
     public function scan_copy() : HasMany

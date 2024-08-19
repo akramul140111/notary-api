@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('applications', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('mobile');
-            $table->string('gender');
-            $table->string('email')->nullable();
-            $table->timestamps();
+        Schema::table('applications', function (Blueprint $table) {
+            //
+            $table->integer('service_id')->after('email');
+            $table->integer('office_id')->after('service_id');
         });
     }
 
@@ -26,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('applications');
+        Schema::table('applications', function (Blueprint $table) {
+            //
+        });
     }
 };
