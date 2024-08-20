@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('applications', function (Blueprint $table) {
             //
-            $table->integer('service_id')->after('email');
+            $table->string('service_id')->after('email');
             $table->integer('office_id')->after('service_id');
         });
     }

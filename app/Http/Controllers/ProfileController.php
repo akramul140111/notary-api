@@ -26,13 +26,18 @@ class ProfileController extends Controller
     public function profileUpdate(Request $request, $id)
     {
         try {
+            $user = User::where('id', $id)->first();
             if ($request->hasFile('signature')) {
+                if(!empty($user->signature)) {
+                    Storage::delete($user->signature);
+                }
                 $file = $request->file('signature');
                 $path = $file->store("profile", 'public');
-    
+
                 User::where('id', $id)->update([
                     'signature' => $path,
                 ]);
+             
             }
     
             $userInfo = User::find($id);

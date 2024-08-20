@@ -8,9 +8,11 @@ use App\Http\Requests\ApplicationRequest;
 use App\Http\Resources\ApplicationResource;
 use App\Http\Resources\ApplicationResourceCollection;
 use App\Models\Application;
+use App\Models\User;
 use App\Services\ApplicationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ApplicationController extends Controller
 {
@@ -26,10 +28,10 @@ class ApplicationController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index($service_id)
     {
         $allServices    = $this->globalHelper->getServiceList(65) ?? [];
-        $application = new ApplicationResourceCollection(Application::all());
+        $application = new ApplicationResourceCollection(Application::where('service_id',$service_id)->get());
         return response()->json(['status' => true, 'data' => $application, 'message' => 'Successfully get Applications', 'services' => $allServices], 200);
     }
 
@@ -43,7 +45,14 @@ class ApplicationController extends Controller
     {
         try {
             $application = (new ApplicationService())->store($request);
-            return response()->json(['status' => true, 'data' => $application, 'message' => 'Successfully created an application'], 201);
+            $applications = new ApplicationResourceCollection(Application::where('service_id',$application->service_id)->get());
+
+            $forNotary = [
+                'application'   => $application,
+                'user_info'     => User::where('id', $request->userId)->first()
+            ];
+            Http::post("http://127.0.0.1:8002/api/notary-application", $forNotary);
+            return response()->json(['status' => true, 'application' => $application, 'data' => $applications, 'message' => 'Successfully created an application'], 201);
         } catch(\Throwable $t) {
             return response()->json(['status' => false, 'data' => '', 'message' => $t->getMessage()], 422);
         }
