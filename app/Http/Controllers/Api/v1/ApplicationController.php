@@ -31,7 +31,7 @@ class ApplicationController extends Controller
     public function index($service_id)
     {
         $allServices    = $this->globalHelper->getServiceList(65) ?? [];
-        $application = new ApplicationResourceCollection(Application::where('service_id',$service_id)->get());
+        $application    = Application::where('service_id',$service_id)->paginate(8);
         return response()->json(['status' => true, 'data' => $application, 'message' => 'Successfully get Applications', 'services' => $allServices], 200);
     }
 
@@ -45,7 +45,7 @@ class ApplicationController extends Controller
     {
         try {
             $application = (new ApplicationService())->store($request);
-            $applications = new ApplicationResourceCollection(Application::where('service_id',$application->service_id)->get());
+            $applications = Application::where('service_id',$application->service_id)->paginate(8);
 
             $forNotary = [
                 'application'   => $application,
@@ -61,6 +61,7 @@ class ApplicationController extends Controller
                         Application::where('id', $application->id)->update(['is_sync' => true]);
                     }
 
+                    return response()->json($sync->json());
                 }catch(\Exception $e) {
                     return response()->json(['status' => false, 'data' => '', 'message' => $e->getMessage()], 422);
                 }

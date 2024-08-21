@@ -15,6 +15,7 @@ class ApplicationService {
         $application->email         = $request->email;
         $application->office_id     = $request->office_id ? $request->office_id : 4;
         $application->service_id    = $request->service_id;
+        $application->service_name  = $request->service_name;
         $application->save();
 
         if ($request->has('scan_copy')) {
