@@ -23,10 +23,12 @@ class ApplicationRequest extends FormRequest
     {
         return [
             //
-            'name'      => 'required',
-            'mobile'    => 'required',
-            'gender'    => 'required',
-            'scan_copy' => 'required|max:2048',
+            'name'          => 'required',
+            'mobile'        => 'required',
+            'gender'        => 'required',
+            'service_id'    => 'required',
+            // 'scan_copies.*.title' => 'nullable|string',
+            // 'scan_copies.*.appImg' => 'nullable|file|mimes:jpg,png,pdf|max:2048',
         ];
     }
 }
