@@ -50,6 +50,8 @@ return [
         'service_cache_time' => env('SERVICE_CACHE_TIME'),
         'mygov_external_application_url' => env('MYGOV_EXTERNAL_APPLICATION'),
         'base_url' => env('APP_URL'),
+        'third_party_api' => env('THIRD_PARTY_API')
     ],
+    
 
 ];

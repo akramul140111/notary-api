@@ -51,7 +51,20 @@ class ApplicationController extends Controller
                 'application'   => $application,
                 'user_info'     => User::where('id', $request->userId)->first()
             ];
-            Http::post("http://127.0.0.1:8002/api/notary-application", $forNotary);
+
+                $third_party = config('services.app.third_party_api');
+
+                try{
+                    $sync = Http::post($third_party."/api/notary-application", $forNotary);
+
+                    if($sync) {
+                        Application::where('id', $application->id)->update(['is_sync' => true]);
+                    }
+
+                }catch(\Exception $e) {
+                    return response()->json(['status' => false, 'data' => '', 'message' => $e->getMessage()], 422);
+                }
+
             return response()->json(['status' => true, 'application' => $application, 'data' => $applications, 'message' => 'Successfully created an application'], 201);
         } catch(\Throwable $t) {
             return response()->json(['status' => false, 'data' => '', 'message' => $t->getMessage()], 422);
