@@ -18,7 +18,7 @@ class ScanCopyResource extends JsonResource
         return [
             'id'                => $this->id,
             'application_id'    => $this->application_id,
-            'scan_copy'         => Storage::url($this->scan_copy),
+            'scan_copy'         => $this->scan_copy? config("services.app.base_url").Storage::url($this->scan_copy) : "",
             'title'             => $this->title,
         ];
     }
