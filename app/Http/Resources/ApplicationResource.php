@@ -24,6 +24,7 @@ class ApplicationResource extends JsonResource
             'scan_copy'         => $this->scan_copy ? ScanCopyResource::collection($this->scan_copy) : [],
             'email'             => $this->email,
             'office_id'         => $this->office_id,
+            'service_main_id'   => $this->service_main_id,
             'service_id'        => $this->service_id,
             'service_name'      => $this->service_name,
             'application_date'  => $this->created_at->format("Y-m-d"),

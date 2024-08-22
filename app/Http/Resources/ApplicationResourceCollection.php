@@ -25,8 +25,10 @@ class ApplicationResourceCollection extends ResourceCollection
                 'scan_copy'         => $application->scan_copy ? ScanCopyResource::collection($application->scan_copy) : [],
                 'email'             => $application->email,
                 'office_id'         => $application->office_id,
+                'service_main_id'   => $application->service_main_id,
                 'service_id'        => $application->service_id,
                 'service_name'      => $application->service_name,
+                'application_date'  => $this->created_at->format("Y-m-d"),
             ];
         })->all() ;
     }
