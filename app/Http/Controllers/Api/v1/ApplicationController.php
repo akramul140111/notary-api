@@ -44,8 +44,8 @@ class ApplicationController extends Controller
     public function store(ApplicationRequest $request) : JsonResponse
     {
         try {
-            $application = (new ApplicationService())->store($request);
-            $applications = Application::where('service_id',$application->service_id)->paginate(8);
+            $application    = (new ApplicationService())->store($request);
+            $applications   = Application::where('service_id',$application->service_id)->paginate(8);
 
             $forNotary = [
                 'application'   => $application,
@@ -62,6 +62,7 @@ class ApplicationController extends Controller
                     }
 
                     return response()->json($sync->json());
+
                 }catch(\Exception $e) {
                     return response()->json(['status' => false, 'data' => '', 'message' => $e->getMessage()], 422);
                 }
