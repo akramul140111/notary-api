@@ -23,7 +23,8 @@ class ApplicationService {
             foreach ($request->input('scan_copy') as $index => $scan) {
                 $scan_file                  = new ScanCopy();
                 $scan_file->application_id  = $application->id;
-                $scan_file->title           = $scan['title'] ?? 'No Title';
+                // $scan_file->title           = $scan['title'] ?? 'No Title';
+                $scan_file->title           = $request->input('scan_copy')[0]['title'];
     
                 if ($request->hasFile('scan_copy.' . $index . '.appImg')) {
                     $file                   = $request->file('scan_copy.' . $index . '.appImg');
