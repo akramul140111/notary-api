@@ -61,7 +61,7 @@ class ApplicationController extends Controller
                         Application::where('id', $application->id)->update(['is_sync' => true]);
                     }
 
-                    return response()->json($sync->json());
+                    // return response()->json($sync->json());
 
                 }catch(\Exception $e) {
                     return response()->json(['status' => false, 'data' => '', 'message' => $e->getMessage()], 422);
