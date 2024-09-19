@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://notary.stage.mygov.bd'],
+    'allowed_origins' => ['http://notary.stage.mygov.bd'],
 
     'allowed_origins_patterns' => [],
 
